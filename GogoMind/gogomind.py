@@ -6,15 +6,47 @@ import os
 import sys
 
 
+class MapItem(QGraphicsItem):
+    HEIGHT = 100
+    WIDTH = 200
+
+    def __init__(self, x, y, desc, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.x = x
+        self.y = y
+        self.desc = desc
+        self.rect = QRectF(x, y, self.WIDTH, self.HEIGHT)
+        self.setZValue(10)
+
+    def paint(self, QPainter: QPainter, QStyleOptionGraphicsItem, widget=None):
+        QPainter.fillRect(self.rect, QBrush(Qt.white))
+        QPainter.drawRect(self.rect)
+        QPainter.drawText(self.rect, Qt.AlignCenter, self.desc)
+
+    def boundingRect(self):
+        return self.rect
+
+    def __repr__(self):
+        return '<MapItem: %s>' % self.desc
+
+
+class MapScene(QGraphicsScene):
+
+    def mousePressEvent(self, QGraphicsSceneMouseEvent):
+        point: QPointF = QGraphicsSceneMouseEvent.scenePos()
+        item = self.itemAt(point.x(), point.y(), QTransform())
+        print(point)
+        print(item)
+
+
 class MainWindow(QMainWindow):
 
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
 
         layout = QVBoxLayout()
-        self.scene = QGraphicsScene()
+        self.scene = MapScene()
         self.scene_view = QGraphicsView(self.scene)
-        self.scene.addText('Hello World')
 
         # self.path holds the path of the currently open file.
         # If none, we haven't got a file open yet (or creating new).
@@ -89,6 +121,12 @@ class MainWindow(QMainWindow):
         edit_toolbar.addAction(selection_action)
         edit_menu.addAction(selection_action)
 
+        delete_action = QAction(QIcon(os.path.join('images', 'deletion.png')), "Deletion", self)
+        delete_action.setStatusTip("Deletion State")
+        # delete_action.triggered.connect(self.input_dialog)
+        edit_toolbar.addAction(delete_action)
+        edit_menu.addAction(delete_action)
+
         sibling_action = QAction(QIcon(os.path.join('images', 'parent.png')), "Sibling", self)
         sibling_action.setStatusTip("Add Sibling Node")
         # sibling_action.triggered.connect(self.editor.paste)
@@ -101,18 +139,39 @@ class MainWindow(QMainWindow):
         edit_toolbar.addAction(child_action)
         edit_menu.addAction(child_action)
 
-        delete_action = QAction(QIcon(os.path.join('images', 'deletion.png')), "Delete", self)
-        delete_action.setStatusTip("Delete a node")
-        delete_action.triggered.connect(self.input_dialog)
-        edit_toolbar.addAction(delete_action)
-        edit_menu.addAction(delete_action)
+        insert_action = QAction(QIcon(os.path.join('images', 'plus.png')), "Insert a node", self)
+        insert_action.setStatusTip("Insert a node")
+        insert_action.triggered.connect(self.insert_node_dialog)
+        edit_toolbar.addAction(insert_action)
+        edit_menu.addAction(insert_action)
 
         self.update_title()
         self.show()
 
-    def input_dialog(self):
-        text, okPressed = QInputDialog.getText(self, "Get text", "Your name:", QLineEdit.Normal, "")
-        print(text)
+        ### Just for demo
+        root = MapItem(0, 0, 'Computer <Root, ID:0>')
+        node = MapItem(300, 0, 'OS <Node, ID:1>')
+        node2 = MapItem(300, 150, 'Network <Node, ID:2>')
+        line1 = QGraphicsLineItem(50, 50, 350, 50)
+        line2 = QGraphicsLineItem(200, 50, 300, 200)
+
+        node3 = MapItem(600, 0, 'MacOS <Node, ID:3>')
+        line3 = QGraphicsLineItem(350, 50, 600, 50)
+        self.scene.addItem(node3)
+        self.scene.addItem(line3)
+
+        self.scene.addItem(line1)
+        self.scene.addItem(line2)
+        self.scene.addItem(root)
+        self.scene.addItem(node)
+        self.scene.addItem(node2)
+        ###
+
+    def insert_node_dialog(self):
+        node_id, okPressed = QInputDialog.getText(self, "Insert a node", "Node ID:", QLineEdit.Normal, "")
+        print(node_id)
+        node_desc, okPressed = QInputDialog.getText(self, "Insert a node", "Node description:", QLineEdit.Normal, "")
+        print(node_desc)
 
     def dialog_critical(self, s):
         dlg = QMessageBox(self)
