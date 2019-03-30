@@ -176,9 +176,9 @@ class MainWindow(QMainWindow):
         ###
 
     def insert_node_dialog(self):
-        node_id, okPressed = QInputDialog.getText(self, "Delete a node", "Node ID to delete", QLineEdit.Normal, "")
+        node_id, okPressed = QInputDialog.getText(self, "Insert a node", "Node ID to append", QLineEdit.Normal, "")
         print(node_id)
-        node_desc, okPressed = QInputDialog.getText(self, "Delete a node", "New node description:", QLineEdit.Normal, "")
+        node_desc, okPressed = QInputDialog.getText(self, "Insert a node", "New node description:", QLineEdit.Normal, "")
         print(node_desc)
 
     def dialog_critical(self, s):
