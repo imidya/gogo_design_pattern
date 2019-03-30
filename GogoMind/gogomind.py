@@ -121,6 +121,12 @@ class MainWindow(QMainWindow):
         edit_toolbar.addAction(selection_action)
         edit_menu.addAction(selection_action)
 
+        edit_action = QAction(QIcon(os.path.join('images', 'icon_edit.png')), "Edit a node", self)
+        edit_action.setStatusTip("Edit a node")
+        # edit_action.triggered.connect(self.insert_node_dialog)
+        edit_toolbar.addAction(edit_action)
+        edit_menu.addAction(edit_action)
+
         delete_action = QAction(QIcon(os.path.join('images', 'deletion.png')), "Deletion", self)
         delete_action.setStatusTip("Deletion State")
         # delete_action.triggered.connect(self.input_dialog)
@@ -150,27 +156,29 @@ class MainWindow(QMainWindow):
 
         ### Just for demo
         root = MapItem(0, 0, 'Computer <Root, ID:0>')
+        self.scene.addItem(root)
+
         node = MapItem(300, 0, 'OS <Node, ID:1>')
-        node2 = MapItem(300, 150, 'Network <Node, ID:2>')
+        self.scene.addItem(node)
         line1 = QGraphicsLineItem(50, 50, 350, 50)
+        self.scene.addItem(line1)
+
+        node2 = MapItem(300, 150, 'Network <Node, ID:2>')
+        self.scene.addItem(node2)
         line2 = QGraphicsLineItem(200, 50, 300, 200)
+        self.scene.addItem(line2)
 
         node3 = MapItem(600, 0, 'MacOS <Node, ID:3>')
         line3 = QGraphicsLineItem(350, 50, 600, 50)
         self.scene.addItem(node3)
         self.scene.addItem(line3)
-
-        self.scene.addItem(line1)
-        self.scene.addItem(line2)
-        self.scene.addItem(root)
-        self.scene.addItem(node)
-        self.scene.addItem(node2)
+        #
         ###
 
     def insert_node_dialog(self):
-        node_id, okPressed = QInputDialog.getText(self, "Insert a node", "Node ID:", QLineEdit.Normal, "")
+        node_id, okPressed = QInputDialog.getText(self, "Delete a node", "Node ID to delete", QLineEdit.Normal, "")
         print(node_id)
-        node_desc, okPressed = QInputDialog.getText(self, "Insert a node", "Node description:", QLineEdit.Normal, "")
+        node_desc, okPressed = QInputDialog.getText(self, "Delete a node", "New node description:", QLineEdit.Normal, "")
         print(node_desc)
 
     def dialog_critical(self, s):
@@ -180,7 +188,7 @@ class MainWindow(QMainWindow):
         dlg.show()
 
     def file_open(self):
-        path, _ = QFileDialog.getOpenFileName(self, "Open file", "", "GogoMind documents (*.ggm);")
+        path, _ = QFileDialog.getOpenFileName(self, "Open file", "", "*.ggm")
 
         try:
             with open(path, 'rU') as f:
