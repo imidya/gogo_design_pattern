@@ -10,15 +10,18 @@ class MapItem(QGraphicsItem):
     HEIGHT = 100
     WIDTH = 200
 
-    def __init__(self, x, y, desc, *args, **kwargs):
+    def __init__(self, x, y, desc, selected=False, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.x = x
         self.y = y
         self.desc = desc
         self.rect = QRectF(x, y, self.WIDTH, self.HEIGHT)
         self.setZValue(10)
+        self.selected = selected
 
     def paint(self, QPainter: QPainter, QStyleOptionGraphicsItem, widget=None):
+        if self.selected:
+            QPainter.setPen(QColor(255, 0, 0))
         QPainter.fillRect(self.rect, QBrush(Qt.white))
         QPainter.drawRect(self.rect)
         QPainter.drawText(self.rect, Qt.AlignCenter, self.desc)
@@ -120,12 +123,12 @@ class MainWindow(QMainWindow):
         self.addToolBar(state_toolbar)
         state_menu = self.menuBar().addMenu("&State")
 
-        selection_action = QAction(QIcon(os.path.join('images', 'selection.png')), "Selection", self)
-        selection_action.setStatusTip("Selection State")
-        # selection_action.triggered.connect(self.editor.paste)
-        state_toolbar.addAction(selection_action)
-        state_menu.addAction(selection_action)
-        # selection_action.setEnabled(False)
+        pointer_action = QAction(QIcon(os.path.join('images', 'pointer.png')), "pointer", self)
+        pointer_action.setStatusTip("pointer State")
+        # pointer_action.triggered.connect(self.editor.paste)
+        state_toolbar.addAction(pointer_action)
+        state_menu.addAction(pointer_action)
+        # pointer_action.setEnabled(False)
 
         edit_action = QAction(QIcon(os.path.join('images', 'icon_edit.png')), "Edit a node", self)
         edit_action.setStatusTip("Edit a node")
@@ -162,10 +165,10 @@ class MainWindow(QMainWindow):
         self.show()
 
         ### Just for demo
-        root = MapItem(0, 0, 'Computer <Root, ID:0>')
+        root = MapItem(0, 0, 'Root <Root, ID:0>')
         self.scene.addItem(root)
 
-        node = MapItem(300, 0, 'OS <Node, ID:1>')
+        node = MapItem(300, 0, 'OS <Node, ID:1>', selected=True)
         self.scene.addItem(node)
         line1 = QGraphicsLineItem(50, 50, 350, 50)
         self.scene.addItem(line1)
@@ -183,9 +186,7 @@ class MainWindow(QMainWindow):
         ###
 
     def insert_node_dialog(self):
-        node_id, okPressed = QInputDialog.getText(self, "Insert a node", "Node ID to append", QLineEdit.Normal, "")
-        print(node_id)
-        node_desc, okPressed = QInputDialog.getText(self, "Insert a node", "New node description:", QLineEdit.Normal, "")
+        node_desc, okPressed = QInputDialog.getText(self, "Edit a node", "New node description:", QLineEdit.Normal, "")
         print(node_desc)
 
     def dialog_critical(self, s):
