@@ -123,7 +123,7 @@ class MainWindow(QMainWindow):
         self.addToolBar(state_toolbar)
         state_menu = self.menuBar().addMenu("&State")
 
-        pointer_action = QAction(QIcon(os.path.join('images', 'pointer.png')), "pointer", self)
+        pointer_action = QAction(QIcon(os.path.join('images', 'selection.png')), "pointer", self)
         pointer_action.setStatusTip("pointer State")
         # pointer_action.triggered.connect(self.editor.paste)
         state_toolbar.addAction(pointer_action)
@@ -164,8 +164,8 @@ class MainWindow(QMainWindow):
         self.update_title()
         self.show()
 
-        ### Just for demo
-        root = MapItem(0, 0, 'Root <Root, ID:0>')
+        # Just for demo
+        root = MapItem(0, 0, 'Computer <Root, ID:0>')
         self.scene.addItem(root)
 
         node = MapItem(300, 0, 'OS <Node, ID:1>', selected=True)
@@ -182,7 +182,6 @@ class MainWindow(QMainWindow):
         line3 = QGraphicsLineItem(350, 50, 600, 50)
         self.scene.addItem(node3)
         self.scene.addItem(line3)
-        #
         ###
 
     def insert_node_dialog(self):
