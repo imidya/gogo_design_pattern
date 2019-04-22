@@ -21,11 +21,13 @@ if __name__ == '__main__':
     子系統二方法
     """
     print('\n\n')
+
     facade.methodB()
     """Excepted Result
     子系統一方法
     """
     print('\n\n')
+
     facade.methodC()
     """Excepted Result
     子系統二方法

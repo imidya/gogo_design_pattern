@@ -2,14 +2,14 @@
 Call in behavior in Whoscall
 
 
-                                                        --- Full AD -----
-                                                       /                 \
-                           --- Answer --- Call End ---                    ---- Idle
-                          /                            \                 /
-                         ｜                              --- Banner AD --
-Idle --- CallInComing ----
-                          \
-                           --- Not Answer --- Miss Call --- Thank --- Idle
+                                            --- Full AD -----
+                                           /                 \
+                           --- Call End ---                   ---- Idle
+                          /                \                 /      ｜
+                         ｜ Answer          --- Banner AD --        ｜
+Idle --- CallInComing ----                                          ｜
+                          \ Not Answer                              ｜
+                           --- Miss Call --- Thank -----------------/
 
 
 
