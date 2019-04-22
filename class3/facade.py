@@ -24,3 +24,8 @@ if __name__ == '__main__':
     """Excepted Result
     子系統一方法
     """
+    facade.methodC()
+    """Excepted Result
+    子系統二方法
+    子系統一方法
+    """
