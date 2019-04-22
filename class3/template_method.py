@@ -60,6 +60,7 @@ if __name__ == '__main__':
     準備附湯 - 牛肉湯
     送餐給客人
     """
+    print()
 
     braised_pork.process_order(100)
     '''Excepted Results

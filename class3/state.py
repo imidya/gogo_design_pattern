@@ -105,7 +105,7 @@ if __name__ == '__main__':
     顯示全版廣告/顯示半版廣告
     待機狀態，不做任何動作
     """
-    print('\n\n')
+    print()
 
     whoscall.receive_a_call(False)
     """Excepted Results
