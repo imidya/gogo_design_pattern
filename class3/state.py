@@ -35,29 +35,25 @@ class IdleState(State):
 class ThankState(State):
     def handle(self):
         print('顯示感謝畫面')
-        self.context.state = IdleState(self.context)
-        self.context.state.handle()
+        self.context.change_state(IdleState(self.context))
 
 
 class MissCallState(State):
     def handle(self):
         print('未接狀態')
-        self.context.state = ThankState(self.context)
-        self.context.state.handle()
+        self.context.change_state(ThankState(self.context))
 
 
 class FullADState(State):
     def handle(self):
         print('顯示全版廣告')
-        self.context.state = IdleState(self.context)
-        self.context.state.handle()
+        self.context.change_state(IdleState(self.context))
 
 
 class BannerADState(State):
     def handle(self):
         print('顯示半版廣告')
-        self.context.state = IdleState(self.context)
-        self.context.state.handle()
+        self.context.change_state(IdleState(self.context))
 
 
 class CallEndState(State):
@@ -92,7 +88,11 @@ class Whoscall:
         self.state = IdleState(self)
 
     def receive_a_call(self, answer):
-        self.state = IncomingState(answer)
+        self.change_state(IncomingState(self, answer))
+
+    def change_state(self, new_state):
+        self.state = new_state
+        self.state.handle()
 
 
 if __name__ == '__main__':
