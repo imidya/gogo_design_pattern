@@ -27,7 +27,7 @@ if __name__ == '__main__':
     doc1 = Document()
 
     title = Title('Hello I am Title')
-    content = Content('Hellow I am Content')
+    content = Content('Hello I am Content')
 
     doc1.set_title(title)
     doc1.set_content(content)
