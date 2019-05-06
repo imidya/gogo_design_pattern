@@ -1,7 +1,8 @@
 # TODO: class Prototype
 
 class Title:
-    def __init__(self, title): self.text = title
+    def __init__(self, title): 
+        self.text = title
 
 
 class Content:
