@@ -1,8 +1,7 @@
 # TODO: class Prototype
 
 class Title:
-    def __init__(self, title):
-        self.text = title
+    def __init__(self, title): self.text = title
 
 
 class Content:
@@ -17,9 +16,7 @@ class Document(Prototype):
     def set_content(self, content: Content):
         self.content = content
 
-    def clone(self):
-        # TODO
-        pass
+    # TODO: implement clone()
 
     def __str__(self):
         return f'Title: {self.title.text}, Content: {self.content.text}'
