@@ -7,16 +7,10 @@ class SearchAlgorithm:
         pass
 
 
-class SearchAlgorithmA(SearchAlgorithm):
-
-    def do_search(self) -> List[Text]:
-        return ['Item A', 'Item B', 'Item C']
+# TODO: SearchAlgorithmA
 
 
-class SearchAlgorithmB(SearchAlgorithm):
-
-    def do_search(self) -> List[Text]:
-        return ['Item C', 'Item B', 'Item A']
+# TODO: SearchAlgorithmB
 
 
 class User:
@@ -29,11 +23,13 @@ class SearchEngine:
         strategy = None
 
         if user.uid % 2 == 0:
-            strategy = SearchAlgorithmA()
+            # TODO
+            pass
         else:
-            strategy = SearchAlgorithmB()
+            # TODO
+            pass
 
-        items = strategy.do_search()
+        items: List[Text] = strategy.do_search()
         print(items)
 
 
