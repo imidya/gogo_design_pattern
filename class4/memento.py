@@ -10,10 +10,12 @@ class Application:
     state = 'init state'
 
     def backup(self) -> Memento:
-        return Memento(self.state)
+        # TODO
+        pass
 
     def rollback(self, memento: Memento):
-        self.state = memento.state
+        # TODO
+        pass
 
     def set_state(self, state):
         self.state = state
@@ -38,18 +40,12 @@ if __name__ == '__main__':
     print(app)
 
     app.set_state('State 2')
-    m = app.backup()
-    recover.add(m)
-    print(app)
+    # TODO: backup State 2
 
     app.set_state('State 3')
-    m = app.backup()
-    recover.add(m)
     print(app)
 
-    new_m = recover.get()
-    app.rollback(new_m)
-    print(app)
+    # TODO: roll back to State2
 
     """Excepted Result
     init state
