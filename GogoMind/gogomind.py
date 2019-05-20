@@ -128,7 +128,7 @@ class MainWindow(QMainWindow):
         # pointer_action.triggered.connect(self.editor.paste)
         state_toolbar.addAction(pointer_action)
         state_menu.addAction(pointer_action)
-        # pointer_action.setEnabled(False)
+        pointer_action.setCheckable(True)
 
         edit_action = QAction(QIcon(os.path.join('images', 'icon_edit.png')), "Edit a node", self)
         edit_action.setStatusTip("Edit a node")

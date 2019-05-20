@@ -23,6 +23,9 @@ class Document(Prototype):
         return f'Title: {self.title.text}, Content: {self.content.text}'
 
 
+with open('rank.txt', 'w') as f:
+    f.wirte
+
 if __name__ == '__main__':
     doc1 = Document()
 
