@@ -51,7 +51,7 @@ class BodySeaFood(Visitor):
 
 class MassageStore:
 
-    def do_service(self, seadfood: Visitor, customer: Customer):
+    def massage(self, seadfood: Visitor, customer: Customer):
         customer.accept(seadfood)
         customer.pay()
         print()
@@ -64,10 +64,10 @@ if __name__ == '__main__':
     normal_customer = NormalMember()
     VIP_customer = VIPMember()
 
-    store.do_service(foot_seafood, normal_customer)
-    store.do_service(foot_seafood, VIP_customer)
-    store.do_service(body_seafood, normal_customer)
-    store.do_service(body_seafood, VIP_customer)
+    store.massage(foot_seafood, normal_customer)
+    store.massage(foot_seafood, VIP_customer)
+    store.massage(body_seafood, normal_customer)
+    store.massage(body_seafood, VIP_customer)
     """Excepted Result
     Normal Customer - Foot Massage
     Customer pay the money
